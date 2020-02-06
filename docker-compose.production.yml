@@ -3,7 +3,7 @@ version: '2'
 services:
   app:
     build: ./
-    image: root
+    image: qayesodot/root:temp
     environment:
       PORT: 3000
       MONGODB_URI: mongodb://root:password123@mongo/icu?authSource=admin
