@@ -37,16 +37,11 @@ jobs:
 
     steps:
     - name: ssh command
-      uses: fifsky/ssh-action@master
-      with:
-        command: |
-          cd /tmp
-          ls -a
-        host: ${{ secrets.HOST }}
-        user: ${{ secrets.USERNAME }}
-        pass: ${{ secrets.PASSWORD }}
-
-
+      run: |
+        cd ~/groot
+        docker-compose down
+        git pull origin master
+        docker-compose -f docker-compose.production.yml up -d
     # steps:
     #   - name: executing remote ssh commands using password
     #     uses: appleboy/ssh-action@master
