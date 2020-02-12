@@ -45,9 +45,8 @@ jobs:
           port: ${{ secrets.PORT }}
           script_stop: true
           script: |
-            cd ~/groot
-            docker-compose down
-            git pull origin master
-            docker-compose -f docker-compose.production.yml up -d
+            ~/groot/ docker-compose down
+            ~/groot/ git pull origin master
+            ~/groot/ docker-compose -f docker-compose.production.yml up -d
 
             
