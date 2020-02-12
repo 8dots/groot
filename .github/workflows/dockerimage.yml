@@ -46,6 +46,9 @@ jobs:
           script_stop: true
           script: |
             ll
+            cd groot
+            ll
+            ~/groot/ ll
             ~/groot/ docker-compose down
             ~/groot/ git pull origin master
             ~/groot/ docker-compose -f docker-compose.production.yml up -d
