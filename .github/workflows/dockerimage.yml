@@ -31,7 +31,7 @@ jobs:
 
   publish:
     
-    needs: release
+    #needs: release
 
     runs-on: self-hosted
 
