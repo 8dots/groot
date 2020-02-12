@@ -36,15 +36,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: executing remote ssh commands using password
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
-          port: ${{ secrets.PORT }}
-          script_stop: true
-          script: echo check, 1 2, please work dont die on me
+    - name: Run a command remotely
+      uses: docker://evaneos/ssh-action:0.1.0
+      with:
+        hosts: ${{ secrets.HOST }}
+        user: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        knock_sequence: ${{ secrets.PORT }}
+        commands: echo "Hello world!"
+
+
+    # steps:
+    #   - name: executing remote ssh commands using password
+    #     uses: appleboy/ssh-action@master
+    #     with:
+    #       host: ${{ secrets.HOST }}
+    #       username: ${{ secrets.USERNAME }}
+    #       password: ${{ secrets.PASSWORD }}
+    #       port: ${{ secrets.PORT }}
+    #       script_stop: true
+    #       script: echo check, 1 2, please work dont die on me
 
 
             
