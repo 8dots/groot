@@ -36,11 +36,20 @@ jobs:
     runs-on: self-hosted
 
     steps:
-    - name: ssh command
+    - name: docker-compose down
       run: |
         cd ~/groot
         docker-compose down
+        
+    - name: docker-compose down
+      run: |      
+        cd ~/groot
         git pull origin master
+        
+
+    - name: docker-compose down
+      run: |      
+        cd ~/groot
         docker-compose -f docker-compose.production.yml up -d
     # steps:
     #   - name: executing remote ssh commands using password
