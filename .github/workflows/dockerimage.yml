@@ -36,14 +36,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Run a command remotely
-      uses: docker://evaneos/ssh-action:0.1.0
+    - name: ssh command
+      uses: fifsky/ssh-action@master
       with:
-        hosts: ${{ secrets.HOST }}
+        command: |
+          cd /tmp
+          ls -a
+        host: ${{ secrets.HOST }}
         user: ${{ secrets.USERNAME }}
-        password: ${{ secrets.PASSWORD }}
-        knock_sequence: ${{ secrets.PORT }}
-        commands: echo "Hello world!"
+        pass: ${{ secrets.PASSWORD }}
 
 
     # steps:
