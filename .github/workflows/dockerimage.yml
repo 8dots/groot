@@ -44,7 +44,7 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
           script_stop: true
-          script: ~/groot/ docker-compose down
+          script: docker ps
 
 
             
