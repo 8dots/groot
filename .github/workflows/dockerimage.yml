@@ -44,7 +44,7 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
           script_stop: true
-          script: docker ps
+          script: echo check, 1 2, please work dont die on me
 
 
             
