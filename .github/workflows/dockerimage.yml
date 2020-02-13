@@ -34,8 +34,18 @@ jobs:
     # needs: release
 
     runs-on: self-hosted
-
     steps:
+    - name: Docker Login
+      uses: Azure/docker-login@v1
+      with:
+        # Container registry username
+        username: ${{ secrets.DHuser }}
+        # Container registry password
+        password: ${{ secrets.DHpass }}
+        # Container registry server url
+        login-server: https://index.docker.io/v1/
+
+
     - name: docker-compose down
       run: docker-compose down
         
