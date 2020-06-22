@@ -2,7 +2,7 @@ version: '2'
 
 services:
   app:
-    image: qayesodot/root:temp
+    image: israelfrank/learn_docker:root
     environment:
       PORT: 3000
       MONGODB_URI: mongodb://root:password123@mongo/icu?authSource=admin
