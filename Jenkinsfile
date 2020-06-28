@@ -15,5 +15,7 @@ stages {
             checkout resolveScm(source: git('https://gitlab.com/israelfrank/tryjenkins.git'), targets: [BRANCH_NAME, 'master'])
         }
             sh 'mvn clean compile test-compile'           
+      }
     }
+  }
 }
