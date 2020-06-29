@@ -10,12 +10,9 @@ stages {
             sh 'echo "artifact file" > docker-compose.production.yml'
         }  
     }
-    post {
-    always {
+      always {
         archiveArtifacts artifacts: 'docker-compose.production.yml', onlyIfSuccessful: true
       }
-    }     
-    
     stage('build icu automation') {
       steps {
            
@@ -27,5 +24,6 @@ stages {
       }
     }
   }
+ 
  }
 
