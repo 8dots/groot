@@ -7,6 +7,7 @@ stages {
 		        sh 'docker build -t israelfrank/learn_docker:root .'
             sh 'docker login -u israelfrank -p 0533346872'
             sh 'docker push israelfrank/learn_docker:root'
+            sh archiveArtifacts artifacts: 'docker-compose.production.yml', onlyIfSuccessful: true
         }  
       }
     stage('build icu automation') {
