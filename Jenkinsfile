@@ -9,10 +9,12 @@ stages {
             sh 'docker push israelfrank/learn_docker:root'
             sh 'echo "artifact file" > docker-compose.production.yml'
         }  
-    }
-      always {
+     post {
+    always {
         archiveArtifacts artifacts: 'docker-compose.production.yml', onlyIfSuccessful: true
       }
+    }
+  }     
     stage('build icu automation') {
       steps {
            
@@ -24,6 +26,5 @@ stages {
       }
     }
   }
- 
- }
+} 
 
