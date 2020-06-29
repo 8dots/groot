@@ -14,8 +14,10 @@ stages {
         dir('deps') {
             //sh 'git config --global user.name "israelfrank'
             //sh  'git config --global user.password 0533346872'
-            checkout resolveScm(source: git('git@gitlab.com:israelfrank/tryjenkins.git'), targets: [BRANCH_NAME, 'master'])
-        }
+             git branch: 'master',
+            credentialsId: '13b4c3e0-c0fb-4d8c-9fae-53e8bcd9161e'
+            url: 'https://gitlab.com/israelfrank/tryjenkins.git'
+           
             sh 'mvn test'           
       }
     }
