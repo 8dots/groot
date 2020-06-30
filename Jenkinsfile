@@ -34,9 +34,6 @@ stages {
     
     }
 
-    stage('copy artifact and compose') {
-      stepsstep([$class: 'CopyArtifact', filter: 'docker-compose.production.yml', fingerprintArtifacts: true, flatten: true, projectName: 'echo-develop-js-pipeline', selector: [$class: 'SpecificBuildSelector', buildNumber: '${BUILD_NUMBER}'], target: './client/public/vendor/echo/'])
-    }
   }
 } 
 
