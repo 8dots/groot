@@ -40,7 +40,7 @@ stages {
        unstash 'builtSources'
 
           sh 'docker-compose -f docker-compose.production.yml up -d'
-          sh 'sleep(7)'
+          sh 'sleep 7 '
       }
       // ([$class: 'CopyArtifact',
       //     projectName: 'build icu project',
