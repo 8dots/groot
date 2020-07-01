@@ -12,7 +12,7 @@ stages {
           }  
     post {
        always {
-        stash includes: 'docker-compose.production.yml',name: 'builtSources',onlyIfSuccessful: true
+        stash includes: 'docker-compose.production.yml',name: 'builtSources',//onlyIfSuccessful: true
       }
     }
     
@@ -28,7 +28,7 @@ stages {
         }
     post {
       always {
-        stash includes: '**/*.*', name: 'appConfig',onlyIfSuccessful: true
+        stash includes: '**/*.*', name: 'appConfig',//onlyIfSuccessful: true
       }
     }
     
