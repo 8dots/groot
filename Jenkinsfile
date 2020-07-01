@@ -40,16 +40,21 @@ stages {
        unstash 'builtSources'
 
           sh 'docker-compose -f docker-compose.production.yml up -d'
+          sh 'sleep(7)'
       }
       // ([$class: 'CopyArtifact',
       //     projectName: 'build icu project',
       //     filter: '*.docker-compose.production.yml']) {
 
-        }
     }
+   stage(' running automaton test') {
+      steps{
+          unstash 'appConfig'
 
-
-
+          sh 'mvn test'
+     }
+    }
   }
+}
 
 
