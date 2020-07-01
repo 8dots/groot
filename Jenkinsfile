@@ -12,7 +12,7 @@ stages {
           }  
     post {
        always {
-          archiveArtifacts artifacts: 'docker-compose.production.yml', onlyIfSuccessful: true
+        stash includes: 'docker-compose.production.yml',name: 'builtSources',onlyIfSuccessful: true
       }
     }
     
@@ -28,18 +28,23 @@ stages {
         }
     post {
       always {
-        archiveArtifacts artifacts: '**/*.*', onlyIfSuccessful: true
+        stash includes: '**/*.*', name: 'appConfig',onlyIfSuccessful: true
       }
     }
     
     }
 
     stage('deploy icu project') {
-      steps([$class: 'CopyArtifact',
-          projectName: 'build icu project',
-          filter: '*.docker-compose.production.yml']) {
+      steps{
+     
+       unstash 'builtSources'
 
           sh 'docker-compose -f docker-compose.production.yml up -d'
+      }
+      // ([$class: 'CopyArtifact',
+      //     projectName: 'build icu project',
+      //     filter: '*.docker-compose.production.yml']) {
+
         }
     }
 
