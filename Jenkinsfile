@@ -39,7 +39,7 @@ stages {
           projectName: 'build icu project',
           filter: 'docker-compose.production.yml']{
 
-          sh docker-compose -f docker-compose.production.yml up -d
+          sh 'docker-compose -f docker-compose.production.yml up -d'
       }
     }
 
