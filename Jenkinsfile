@@ -35,14 +35,16 @@ stages {
            
             sh 'mvn clean compile test-compile'           
         }
+      }
     post {
       always {
         stash includes: '**/*.*', name: 'appConfig'//,onlyIfSuccessful: true
       }
+      
+      }
+  
     }
-    
-    }
-
+     
     stage('deploy icu project') {
       steps{
      
@@ -64,7 +66,6 @@ stages {
      }
     }
   }
- }
 }
 
 
