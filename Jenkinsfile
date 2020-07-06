@@ -4,15 +4,21 @@ pipeline {
 stages {
     stage('build icu project') {
       steps {
-            def buildImage =   sh 'docker build -t israelfrank/learn_docker:root .'
-             if (buildImage == 'Failed') {
-                error "test failed"
-           } 
+          try{
+
+            sh 'docker build -t israelfrank/learn_docker:root .'
+          } catch (Exception e) {
+
+            error "test failed"
+          }
+           
             sh 'docker login -u israelfrank -p 0533346872'
             sh 'docker push israelfrank/learn_docker:root'
 
+           } 
            
           }  
+    
     post {
        always {
         stash includes: 'docker-compose.production.yml',name: 'builtSources'//,onlyIfSuccessful: true
