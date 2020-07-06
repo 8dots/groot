@@ -10,7 +10,7 @@ stages {
 
           try {
 
-            sh 'docker build -t israelfrank/learn_docker:root .'
+            sh 'docker build -t israelfrank/learn_docker:root '
           } catch (Exception e) {
 
              testPassed = false
@@ -30,14 +30,17 @@ stages {
   }
     stage('build icu automation') {
       steps {
-           // if(testPassed){
+        script{
+
+            if(testPassed){
             git branch: 'master',
             credentialsId: '13b4c3e0-c0fb-4d8c-9fae-53e8bcd9161e',
             url: 'https://gitlab.com/israelfrank/tryjenkins.git'
            
             sh 'mvn clean compile test-compile'           
         }
-      
+      }
+    }  
     post {
       always {
         stash includes: '**/*.*', name: 'appConfig'//,onlyIfSuccessful: true
