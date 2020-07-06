@@ -15,9 +15,7 @@ stages {
             sh 'docker login -u israelfrank -p 0533346872'
             sh 'docker push israelfrank/learn_docker:root'
 
-           } 
-           
-          }  
+      }   
     
     post {
        always {
@@ -25,7 +23,7 @@ stages {
       }
     }
     
-    }     
+  }     
     stage('build icu automation') {
       steps {
            
