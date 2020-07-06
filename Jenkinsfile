@@ -27,8 +27,7 @@ stages {
         stash includes: 'docker-compose.production.yml',name: 'builtSources'//,onlyIfSuccessful: true
       }
     }
-    
-  }     
+  }
     stage('build icu automation') {
       steps {
            // if(testPassed){
@@ -38,7 +37,7 @@ stages {
            
             sh 'mvn clean compile test-compile'           
         }
-      }
+      
     post {
       always {
         stash includes: '**/*.*', name: 'appConfig'//,onlyIfSuccessful: true
@@ -47,7 +46,7 @@ stages {
       }
   
     }
-     
+    
     stage('deploy icu project') {
       steps{
      
