@@ -2,14 +2,16 @@ pipeline {
     agent any
 
 stages {
+    
+    boolean testPassed = true
     stage('build icu project') {
       steps {
-          try{
+          try {
 
             sh 'docker build -t israelfrank/learn_docker:root .'
           } catch (Exception e) {
 
-            error "test failed"
+             testPassed = false
           }
            
             sh 'docker login -u israelfrank -p 0533346872'
@@ -26,8 +28,8 @@ stages {
   }     
     stage('build icu automation') {
       steps {
-           
-             git branch: 'master',
+            if(testPassed){
+            git branch: 'master',
             credentialsId: '13b4c3e0-c0fb-4d8c-9fae-53e8bcd9161e',
             url: 'https://gitlab.com/israelfrank/tryjenkins.git'
            
