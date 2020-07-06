@@ -2,7 +2,6 @@ pipeline {
     agent any
 
 stages {
-  scripts{  
     boolean testPassed = true
     stage('build icu project') {
       steps {
@@ -66,7 +65,7 @@ stages {
      }
     }
   }
- }
+ 
 }
 
 
