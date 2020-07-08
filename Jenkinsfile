@@ -36,19 +36,17 @@ stages {
   
     // }
     
-    // stage('deploy icu project') {
-    //   steps{
+    //check if up
+    stage('deploy icu project') {
+      steps{
      
-    //    unstash 'builtSources'
+       unstash 'composeFile'
 
-    //       sh 'docker-compose -f docker-compose.production.yml up -d'
-    //       sh 'sleep 15 '
-    //   }
-    //   // ([$class: 'CopyArtifact',
-    //   //     projectName: 'build icu project',
-    //   //     filter: '*.docker-compose.production.yml']) {
-
-    // }
+          sh 'docker-compose -f docker-compose.production.yml up -d'
+          sh 'sleep 15 '
+          sh 'docker run -it jenkins-automation_Ci-4'
+      }
+    }
     // stage(' running automaton test') {
     //   steps{
     //       unstash 'appConfig'
