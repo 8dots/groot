@@ -4,7 +4,7 @@ pipeline {
 stages {
     stage('build icu project') {
       steps {
-            echo '$(BUILD_TAG)'
+            echo '${BUILD_TAG}'
             sh 'docker build -t israelfrank/learn_docker:$(BUILD_TAG) .'
             sh 'docker login -u israelfrank -p 0533346872'
             sh 'docker push israelfrank/learn_docker:$(BUILD_TAG)'
