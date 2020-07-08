@@ -4,16 +4,15 @@ pipeline {
 stages {
     stage('build icu project') {
       steps {
-            echo '${BUILD_TAG}'
             sh 'docker build -t israelfrank/learn_docker:${BUILD_TAG} .'
             sh 'docker login -u israelfrank -p 0533346872'
             sh 'docker push israelfrank/learn_docker:${BUILD_TAG}'
-            sh 'sed "s/learn_docker:root/learn_docker:${BUILD_TAG}/g" docker-compose.production.yml'
+            sh 'sed -i "s/learn_docker:root/learn_docker:${BUILD_TAG}/g" docker-compose.production.yml'
       }
     
     post {
        always {
-        stash includes: 'docker-compose.production.yml',name: 'builtSources'//,onlyIfSuccessful: true
+            archiveArtifacts artifacts: 'docker-compose.production.yml', onlyIfSuccessful: true
       }
     }
   }
