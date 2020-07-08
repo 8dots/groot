@@ -12,7 +12,7 @@ stages {
     
     post {
        always {
-            archiveArtifacts artifacts: 'docker-compose.production.yml', onlyIfSuccessful: true ,
+            archiveArtifacts artifacts: 'docker-compose.production.yml', onlyIfSuccessful: true 
             stash includes: 'docker-compose.production.yml', name: 'composeFile'
       } 
     }
