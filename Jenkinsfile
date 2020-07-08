@@ -44,7 +44,7 @@ stages {
 
           sh 'docker-compose -f docker-compose.production.yml up -d'
           sh 'sleep 15 '
-          sh 'docker run -it jenkins-automation_Ci-4'
+          sh 'docker run jenkins-automation_Ci-4'
       }
     }
     // stage(' running automaton test') {
