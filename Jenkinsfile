@@ -13,7 +13,8 @@ stages {
     post {
        always {
             archiveArtifacts artifacts: 'docker-compose.production.yml', onlyIfSuccessful: true
-      }
+            stash includes: 'docker-compose.production.yml' name: 'composeFile'
+      } 
     }
   }
     // stage('build icu automation') {
