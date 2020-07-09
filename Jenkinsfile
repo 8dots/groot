@@ -28,7 +28,7 @@ stages {
     timeout(5) {
       waitUntil {
         script {
-         def r = sh script: 'http://172.18.0.1:3001', returnStdout: true
+         def r = sh script: 'http://172.18.0.1:3000', returnStdout: true
          return (r == 0);
        }
       }
