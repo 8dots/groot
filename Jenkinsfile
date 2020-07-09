@@ -2,21 +2,21 @@ pipeline {
     agent any
 
 stages {
-    stage('build icu project') {
-      steps {
-            sh 'docker build -t israelfrank/learn_docker:${BUILD_TAG} .'
-            sh 'docker login -u $LOGIN_DOCKER_HUB -p $PASSWORD_DOCKER_HUB'
-            sh 'docker push israelfrank/learn_docker:${BUILD_TAG}'
-            sh 'sed -i "s/learn_docker:root/learn_docker:${BUILD_TAG}/g" docker-compose.production.yml'
-      }
+  //   stage('build icu project') {
+  //     steps {
+  //           sh 'docker build -t israelfrank/learn_docker:${BUILD_TAG} .'
+  //           sh 'docker login -u $LOGIN_DOCKER_HUB -p $PASSWORD_DOCKER_HUB'
+  //           sh 'docker push israelfrank/learn_docker:${BUILD_TAG}'
+  //           sh 'sed -i "s/learn_docker:root/learn_docker:${BUILD_TAG}/g" docker-compose.production.yml'
+  //     }
               
-    post {
-       always {
-            archiveArtifacts artifacts: 'docker-compose.production.yml', onlyIfSuccessful: true 
-            stash includes: 'docker-compose.production.yml', name: 'composeFile'
-      } 
-    }
-  }
+  //   post {
+  //      always {
+  //           archiveArtifacts artifacts: 'docker-compose.production.yml', onlyIfSuccessful: true 
+  //           stash includes: 'docker-compose.production.yml', name: 'composeFile'
+  //     } 
+  //   }
+  // }
     //check if up
     stage('deploy icu project') {
       steps{
