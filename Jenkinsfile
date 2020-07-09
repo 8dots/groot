@@ -3,12 +3,12 @@ pipeline {
 
 stages {
     stage('build icu project') {
-  //     steps {
+      steps {
   //           sh 'docker build -t israelfrank/learn_docker:${BUILD_TAG} .'
-  //           sh 'docker login -u $LOGIN_DOCKER_HUB -p $PASSWORD_DOCKER_HUB'
+               sh 'docker login -u $LOGIN_DOCKER_HUB -p $PASSWORD_DOCKER_HUB'
   //           sh 'docker push israelfrank/learn_docker:${BUILD_TAG}'
   //           sh 'sed -i "s/learn_docker:root/learn_docker:${BUILD_TAG}/g" docker-compose.production.yml'
-  //     }
+       }
               
     post {
        always {
