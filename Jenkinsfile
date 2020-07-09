@@ -9,7 +9,7 @@ stages {
             sh 'docker push israelfrank/learn_docker:${BUILD_TAG}'
             sh 'sed -i "s/learn_docker:root/learn_docker:${BUILD_TAG}/g" docker-compose.production.yml'
       }
-    
+              
     post {
        always {
             archiveArtifacts artifacts: 'docker-compose.production.yml', onlyIfSuccessful: true 
@@ -45,7 +45,7 @@ stages {
           sh 'docker-compose -f docker-compose.production.yml up -d'
           sh 'sleep 15 '
           sh 'docker login -u israelfrank -p 0533346872'
-          sh 'docker run  israelfrank/learn_docker:jenkins-automation_ci_cd-7'
+          sh 'docker run  israelfrank/learn_docker:latest'
           sh 'docker-compose down'
       }
     }
