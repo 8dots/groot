@@ -4,18 +4,18 @@ pipeline {
 stages {
     stage('build icu project') {
       steps {
-  //           sh 'docker build -t israelfrank/learn_docker:${BUILD_TAG} .'
-               sh 'docker login -u $LOGIN_DOCKER_HUB -p $PASSWORD_DOCKER_HUB'
-  //           sh 'docker push israelfrank/learn_docker:${BUILD_TAG}'
-  //           sh 'sed -i "s/learn_docker:root/learn_docker:${BUILD_TAG}/g" docker-compose.production.yml'
-       }
+            sh 'docker build -t israelfrank/learn_docker:${BUILD_TAG} .'
+            sh 'docker login -u $LOGIN_DOCKER_HUB -p $PASSWORD_DOCKER_HUB'
+            sh 'docker push israelfrank/learn_docker:${BUILD_TAG}'
+            sh 'sed -i "s/learn_docker:root/learn_docker:${BUILD_TAG}/g" docker-compose.production.yml'
+      }
               
     post {
        always {
             archiveArtifacts artifacts: 'docker-compose.production.yml', onlyIfSuccessful: true 
             stash includes: 'docker-compose.production.yml', name: 'composeFile'
       } 
-     }
+    }
   }
     //check if up
     stage('deploy icu project') {
@@ -28,7 +28,7 @@ stages {
     timeout(5) {
       waitUntil {
         script {
-         def r = sh script: 'http://172.18.0.1:3000', returnStdout: true
+         def r = sh script: 'http://172.18.0.1:3001', returnStdout: true
          return (r == 0);
        }
       }
