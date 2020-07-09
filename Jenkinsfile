@@ -28,7 +28,7 @@ stages {
     timeout(5) {
       waitUntil {
         script {
-         def r = sh script: 'wget -q http://172.18.0.1:3000 -O /dev/null', returnStdout: true
+         def r = sh script: 'wget -q http://localhost:3000 -O /dev/null', returnStdout: true
          return (r == 0);
        }
       }
