@@ -21,19 +21,18 @@ stages {
     stage('deploy icu project') {
       steps{
      
-         unstash 'composeFile'
+       unstash 'composeFile'
 
           sh 'docker-compose -f docker-compose.production.yml up -d'
-
-    timeout(5) {
-      waitUntil {
-        script {
-         def r = sh script: 'wget -q http://localhost:3000 -O /dev/null', returnStdout: true
-         return (r == 0);
-       }
+          timeout(time: 15 , unit: 'SECONDS') {
+       waitUntil {
+         script {
+          def r = sh 'curl -Is http://localhost:3000/ |head -n 1'
+          return r == HTTP/2 200
+         }
       }
-    }          
-      sh 'docker login -u $LOGIN_DOCKER_HUB -p $PASSWORD_DOCKER_HUB'
+     }
+          sh 'docker login -u $LOGIN_DOCKER_HUB -p $PASSWORD_DOCKER_HUB'
           sh 'docker run  israelfrank/learn_docker:latest'
           sh 'docker-compose down'
       }
