@@ -21,11 +21,19 @@ stages {
     stage('deploy icu project') {
       steps{
      
-       unstash 'composeFile'
+         unstash 'composeFile'
 
           sh 'docker-compose -f docker-compose.production.yml up -d'
-          sh 'sleep 15 '
-          sh 'docker login -u $LOGIN_DOCKER_HUB -p $PASSWORD_DOCKER_HUB'
+
+    timeout(5) {
+      waitUntil {
+        script {
+         def r = sh script: 'http://172.18.0.1:3000', returnStdout: true
+         return (r == 0);
+       }
+      }
+    }          
+      sh 'docker login -u $LOGIN_DOCKER_HUB -p $PASSWORD_DOCKER_HUB'
           sh 'docker run  israelfrank/learn_docker:latest'
           sh 'docker-compose down'
       }
