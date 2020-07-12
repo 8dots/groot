@@ -4,10 +4,6 @@ pipeline {
 stages {
     stage('build icu project') {
       steps {
-          script {
-        def r = sh script: "wget -q http://localhost:3000/ -O /dev/null", returnStatus: true
-          sh "echo $r"
-        }
             sh 'docker build -t israelfrank/learn_docker:${BUILD_TAG} .'
             sh 'docker login -u $LOGIN_DOCKER_HUB -p $PASSWORD_DOCKER_HUB'
             sh 'docker push israelfrank/learn_docker:${BUILD_TAG}'
@@ -31,10 +27,10 @@ stages {
           timeout(time: 15 , unit: 'SECONDS') {
        waitUntil {
          script {
-          def r = sh script: "wget -q http://localhost:3000/ -O /dev/null", returnStatus: true
+          def r = sh script: "wget -q http://localhost:3001/ -O /dev/null", returnStatus: true
          // def r = sh 'curl -Is http://localhost:3000/ |head -n 1', returnStatus:true
-          sh 'echo r'
-         return r == 0
+          sh "echo $r"
+          return r == 0
          }
       }
      }
