@@ -29,7 +29,7 @@ stages {
          script {
           def r = sh 'curl -Is http://localhost:3000/ |head -n 1'
           
-          return r == HTTP/2 200
+          //return r == HTTP/2 200
          }
       }
      }
