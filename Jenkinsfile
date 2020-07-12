@@ -27,7 +27,7 @@ stages {
           timeout(time: 15 , unit: 'SECONDS') {
        waitUntil {
          script {
-          def r = sh script: "wget -q http://localhost:3001/ -O /dev/null", returnStatus: true
+          def r = sh script: "wget -q http://localhost:3000/ -O /dev/null", returnStatus: true
          // def r = sh 'curl -Is http://localhost:3000/ |head -n 1', returnStatus:true
           sh "echo $r"
           return r == 0
