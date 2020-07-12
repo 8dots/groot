@@ -29,7 +29,7 @@ stages {
          script {
           def r = sh script: "wget -q http://localhost:3000/ -O /dev/null", returnStatus: true
          // def r = sh 'curl -Is http://localhost:3000/ |head -n 1', returnStatus:true
-          
+          echo r
          return r == 0
          }
       }
