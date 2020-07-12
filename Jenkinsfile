@@ -27,9 +27,9 @@ stages {
           timeout(time: 15 , unit: 'SECONDS') {
        waitUntil {
          script {
-           sh 'curl -Is http://localhost:3000/ |head -n 1'
+          def r = sh 'curl -Is http://localhost:3000/ |head -n 1'
           
-         // return r == HTTP/2 200
+          return r == HTTP/2 200
          }
       }
      }
