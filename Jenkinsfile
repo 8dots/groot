@@ -13,7 +13,7 @@ stages {
     post {
        always {
             archiveArtifacts artifacts: 'docker-compose.production.yml', onlyIfSuccessful: true 
-            stash includes: 'docker-compose.production.yml', name: 'composeFile'
+            //stash includes: 'docker-compose.production.yml', name: 'composeFile'
       } 
     }
   }
@@ -21,7 +21,7 @@ stages {
     stage('deploy icu project') {
       steps{
      
-       unstash 'composeFile'
+       //unstash 'composeFile'
 
           sh 'docker-compose -f docker-compose.production.yml up -d'
           timeout(time: 15 , unit: 'SECONDS') {
