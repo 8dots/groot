@@ -35,8 +35,12 @@ stages {
      }   
           sh 'docker login -u $LOGIN_DOCKER_HUB -p $PASSWORD_DOCKER_HUB'
           sh 'docker run -v /var/lib/jenkins/workspace/icuPipline/results:/app/reports/  israelfrank/learn_docker:latest'
-          
+      post {
+       always {
+            
           publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '', reportFiles: 'report/extent.html', reportName: 'HTML Report', reportTitles: ''])
+      } 
+    }    
 
           sh 'docker-compose down'
       }
