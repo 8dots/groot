@@ -3,13 +3,16 @@ pipeline {
 
 stages {
     stage('build icu project') {
+     
+      environment {
+       ORIGINAL = "learn_docker:icuiPipline-${currentBuild.previousBuild.number}"
+   }
       steps {
-          sh "echo ${currentBuild.previousBuild.number}"
-          sh "echo i love tehina-${currentBuild.previousBuild.number}"
+          sh "echo ${ORIGINAL}"
             sh 'docker build -t israelfrank/learn_docker:icuiPipline-${BUILD_NUMBER} .'
             sh 'docker login -u $LOGIN_DOCKER_HUB -p $PASSWORD_DOCKER_HUB'
             sh 'docker push israelfrank/learn_docker:icuiPipline-${BUILD_NUMBER}'
-            sh 'sed -i "s/learn_docker:icuiPipline-${BUILD_NUMBER}/learn_docker:icuiPipline-${BUILD_NUMBER}/g" docker-compose.production.yml'
+            sh 'sed -i "s/env.original/learn_docker:icuiPipline-${BUILD_NUMBER}/g" docker-compose.production.yml'
       }
               
     post {
