@@ -4,9 +4,10 @@ pipeline {
 stages {
     stage('build icu project') {
       steps {
+        number =  ${BUILD_NUMBER}
         script {
         
-          int value = ${BUILD_NUMBER}.toInteger()
+          int value = number.toInteger()
         }
           sh "echo value -1"
             sh 'docker build -t israelfrank/learn_docker:icuiPipline-${BUILD_NUMBER} .'
