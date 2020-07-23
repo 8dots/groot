@@ -4,7 +4,7 @@ pipeline {
 stages {
     stage('build icu project') {
       steps {
-        number =  ${BUILD_NUMBER}
+       String number =  ${BUILD_NUMBER}
         script {
         
           int value = number.toInteger()
