@@ -19,7 +19,6 @@ stages {
     post {
        always {
             archiveArtifacts artifacts: 'docker-compose.production.yml', onlyIfSuccessful: true 
-            sh 'cat docker-compose.production.yml'
             stash includes: 'docker-compose.production.yml', name: 'composeFile'
       } 
     }
