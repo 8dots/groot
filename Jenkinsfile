@@ -4,7 +4,7 @@ pipeline {
 stages {
     stage('build icu project') {
       steps {
-          sh "echo ${env.previousBuild}"
+          sh "echo ${BUILD_NUMBER}"
             sh 'docker build -t israelfrank/learn_docker:icuiPipline-${BUILD_NUMBER} .'
             sh 'docker login -u $LOGIN_DOCKER_HUB -p $PASSWORD_DOCKER_HUB'
             sh 'docker push israelfrank/learn_docker:icuiPipline-${BUILD_NUMBER}'
