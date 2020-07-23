@@ -13,11 +13,13 @@ stages {
             sh 'docker login -u $LOGIN_DOCKER_HUB -p $PASSWORD_DOCKER_HUB'
             sh 'docker push israelfrank/learn_docker:icuiPipline-${BUILD_NUMBER}'
             sh 'sed -i "s/${ORIGINAL}/learn_docker:icuiPipline-${BUILD_NUMBER}/g" docker-compose.production.yml'
+            sh 'cat docker-compose.production.yml'
       }
               
     post {
        always {
             archiveArtifacts artifacts: 'docker-compose.production.yml', onlyIfSuccessful: true 
+            sh 'cat docker-compose.production.yml'
             stash includes: 'docker-compose.production.yml', name: 'composeFile'
       } 
     }
@@ -28,7 +30,7 @@ stages {
       steps{
      
        unstash 'composeFile'
-
+          sh 'cat docker-compose.production.yml'
           sh 'docker-compose -f docker-compose.production.yml up -d'
           timeout(time: 15 , unit: 'SECONDS') {
        waitUntil {
