@@ -13,7 +13,6 @@ stages {
             sh 'docker login -u $LOGIN_DOCKER_HUB -p $PASSWORD_DOCKER_HUB'
             sh 'docker push israelfrank/learn_docker:icuiPipline-${BUILD_NUMBER}'
             sh 'sed -i "s/${ORIGINAL}/learn_docker:icuiPipline-${BUILD_NUMBER}/g" docker-compose.production.yml'
-            sh 'cat docker-compose.production.yml'
       }
               
     post {
@@ -29,7 +28,6 @@ stages {
       steps{
      
        unstash 'composeFile'
-          sh 'cat docker-compose.production.yml'
           sh 'docker-compose -f docker-compose.production.yml up -d'
           timeout(time: 15 , unit: 'SECONDS') {
        waitUntil {
@@ -41,7 +39,7 @@ stages {
       }
      }   
           sh 'docker login -u $LOGIN_DOCKER_HUB -p $PASSWORD_DOCKER_HUB'
-          sh 'docker run -v /var/lib/jenkins/workspace/icuPipline/results:/app/reports/  israelfrank/learn_docker:latest'
+          sh 'docker run -v /var/lib/jenkins/workspace/icu-pipline/results:/app/reports/  israelfrank/learn_docker:latest'
 
           sh 'docker-compose down'
       }
