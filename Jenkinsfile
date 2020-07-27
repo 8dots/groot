@@ -1,8 +1,6 @@
 pipeline {
     agent any
 
-stages {
-
   stages {
       stage('get_commit_msg') {
         steps {
