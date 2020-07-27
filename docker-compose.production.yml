@@ -2,7 +2,7 @@ version: '2'
 
 services:
   app:
-    image: israelfrank/learn_docker:icuiPipline-47
+    image: israelfrank/learn_docker:icuiPipline-48
     environment:
       PORT: 3000
       MONGODB_URI: mongodb://root:password123@mongo/icu?authSource=admin
