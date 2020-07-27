@@ -2,6 +2,17 @@ pipeline {
     agent any
 
 stages {
+
+  stages {
+      stage('get_commit_msg') {
+        steps {
+          script {
+              env.GIT_COMMIT_MSG = sh (script: 'git log -1 --pretty=%B ${GIT_COMMIT}', returnStdout: true).trim()
+              env.GIT_SHORT_COMMIT = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
+              env.GIT_COMMITTER_EMAIL = sh (script: "git --no-pager show -s --format='%ae'", returnStdout: true  ).trim()
+        }
+      }
+    }
     stage('build icu project') {
      
       environment {
@@ -44,11 +55,14 @@ stages {
           sh 'docker-compose down'
       }
       post {
-       always {
-            
-          publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '', reportFiles: 'report/extent.html', reportName: 'HTML Report', reportTitles: ''])
-      } 
-    }    
+        always {
+          archiveArtifacts artifacts: 'results/**/*.*', onlyIfSuccessful: true 
+          discordSend description:'**Build**:' + " " + env.BUILD_NUMBER + '\n **Branch**:' + " " + env.GIT_BRANCH + '\n **Status**:' + " " +  currentBuild.result + '\n**Link To Logs**:' + " " + env.BUILD_URL+'console' +'\n \n \n **Commit ID**:'+ " " + env.GIT_SHORT_COMMIT + '\n **commit massage**:' + " " + env.GIT_COMMIT_MSG + '\n **commit email**:' + " " + env.GIT_COMMITTER_EMAIL, footer: '', image: '', link: 'http://127.0.0.1:8080/job/automation_ci_cd/lastSuccessfulBuild/artifact/results/extent.html', result: currentBuild.result, thumbnail: '', title: ' link to result', webhookURL: 'https://discord.com/api/webhooks/735056754051645451/jYad6fXNkPMnD7mopiCJx2qLNoXZnvNUaYj5tYztcAIWQCoVl6m2tE2kmdhrFwoAASbv'   
+      }
+       failure {
+          discordSend description:'**Build**:' + " " + env.BUILD_NUMBER + '\n **Branch**:' + " " + env.GIT_BRANCH + '\n **Status**:' + " " +  currentBuild.result + '\n**Link To Logs**:' + " " + env.BUILD_URL+'console' +'\n \n \n **Commit ID**:'+ " " + env.GIT_SHORT_COMMIT + '\n **commit massage**:' + " " + env.GIT_COMMIT_MSG + '\n **commit email**:' + " " + env.GIT_COMMITTER_EMAIL ,result: currentBuild.result, title: 'link to result' + env.BUILD_NUMBER, link: 'http://127.0.0.1:8080/job/automation_ci_cd/lastSuccessfulBuild/artifact/results/extent.html', webhookURL:'https://discord.com/api/webhooks/735056754051645451/jYad6fXNkPMnD7mopiCJx2qLNoXZnvNUaYj5tYztcAIWQCoVl6m2tE2kmdhrFwoAASbv'             
+      }
+    }  
   }
  }
 }
