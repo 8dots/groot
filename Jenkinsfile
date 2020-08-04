@@ -50,7 +50,7 @@ pipeline {
           sh 'docker login -u $LOGIN_DOCKER_HUB -p $PASSWORD_DOCKER_HUB'
           sh 'docker run -v /var/lib/jenkins/workspace/icu-pipline/results:/app/reports/  israelfrank/learn_docker:latest'
 
-          sh 'docker-compose down'
+          sh 'ocker-compose down'
       }
       post {
         always {
