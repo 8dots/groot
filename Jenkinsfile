@@ -14,14 +14,14 @@ pipeline {
     stage('build icu project') {
      
       environment {
-       ORIGINAL = "learn_docker:icuiPipline-${currentBuild.previousBuild.number}"
+       ORIGINAL = "learn_docker:icu-${currentBuild.previousBuild.number}"
    }
       steps {
           sh "echo ${ORIGINAL}"
-            sh 'docker build -t israelfrank/learn_docker:icuiPipline-${BUILD_NUMBER} .'
+            sh 'docker build -t israelfrank/learn_docker:icu-${BUILD_NUMBER} .'
             sh 'docker login -u $LOGIN_DOCKER_HUB -p $PASSWORD_DOCKER_HUB'
-            sh 'docker push israelfrank/learn_docker:icuiPipline-${BUILD_NUMBER}'
-            sh 'sed -i "s/${ORIGINAL}/learn_docker:icuiPipline-${BUILD_NUMBER}/g" docker-compose.production.yml'
+            sh 'docker push israelfrank/learn_docker:icu-${BUILD_NUMBER}'
+            sh 'sed -i "s/${ORIGINAL}/learn_docker:icu-${BUILD_NUMBER}/g" docker-compose.production.yml'
       }
               
     post {
