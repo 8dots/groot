@@ -48,7 +48,7 @@ pipeline {
       }
      }   
           sh 'docker login -u $LOGIN_DOCKER_HUB -p $PASSWORD_DOCKER_HUB'
-          sh 'docker pull israelfrank/learn_docker:latest'
+          //sh 'docker pull israelfrank/learn_docker:latest'
           sh 'docker run -v /var/lib/jenkins/workspace/icu/results:/app/reports/  israelfrank/learn_docker:latest'
       }
       post {
