@@ -49,11 +49,10 @@ pipeline {
      }   
           sh 'docker login -u $LOGIN_DOCKER_HUB -p $PASSWORD_DOCKER_HUB'
           sh 'docker run -v /var/lib/jenkins/workspace/icu/results:/app/reports/  israelfrank/learn_docker:latest'
-
-          sh 'docker-compose down'
       }
       post {
         always {
+          sh 'docker-compose down'
           archiveArtifacts artifacts: 'results/**/*.*'
           discordSend description:'**Build**:' + " " + env.BUILD_NUMBER + '\n **Branch**:' + " " + env.GIT_BRANCH + '\n **Status**:' + " " +  currentBuild.result + '\n**Link To Logs**:' + " " + env.BUILD_URL+'console' +'\n \n \n **Commit ID**:'+ " " + env.GIT_SHORT_COMMIT + '\n **commit massage**:' + " " + env.GIT_COMMIT_MSG + '\n **commit email**:' + " " + env.GIT_COMMITTER_EMAIL, footer: '', image: '', link: 'http://127.0.0.1:8080/job/automation_ci_cd/lastSuccessfulBuild/artifact/results/extent.html', result: currentBuild.result, thumbnail: '', title: ' link to result', webhookURL: 'https://discord.com/api/webhooks/735056754051645451/jYad6fXNkPMnD7mopiCJx2qLNoXZnvNUaYj5tYztcAIWQCoVl6m2tE2kmdhrFwoAASbv'   
       }
