@@ -20,7 +20,6 @@ pipeline {
           sh "echo ${ORIGINAL}"
             sh 'docker build -t israelfrank/learn_docker:icu-${BUILD_NUMBER} .'
             sh 'docker login -u $LOGIN_DOCKER_HUB -p $PASSWORD_DOCKER_HUB'
-            sh 'docker push israelfrank/learn_docker:icu${BUILD_NUMBER}'
             sh 'docker push israelfrank/learn_docker:icu-${BUILD_NUMBER}'
             sh 'sed -i "s/${ORIGINAL}/learn_docker:icu-${BUILD_NUMBER}/g" docker-compose.production.yml'
       }
